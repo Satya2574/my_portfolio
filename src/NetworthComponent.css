@@ -1,0 +1,122 @@
+.networth-component {
+    background-color: #59b694;
+    padding: 20px;
+    border: 2px solid green;
+    height: 200px;
+    border-radius: 5px;
+    color: #fff; /* white color for better visibility against the background */
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .header h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  .icons {
+    display: flex;
+    font-size: 24px;
+    align-items: center;
+  }
+  
+  .icons > svg {
+    font-size: 20px;
+    cursor: pointer;
+    margin-left: 10px;
+  }
+  
+  .row {
+    margin-top: 20px;
+  }
+  
+  .total-worth {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.1); /* background to distinguish each section */
+    border-radius: 5px;
+  }
+  
+  .total-worth .label {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 5px;
+  }
+  
+  .total-worth .value, 
+  .total-worth .incremental-value {
+    font-size: 32px;
+    font-weight: 700;
+  }
+  
+  .total-worth .percentage-change {
+    font-size: 32px;
+    font-weight: 500;
+  }
+  /* ...other styles remain the same */
+
+.max-gainer, .max-loser {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    padding: 10px;
+    color: #fff; /* white color for text */
+    border-radius: 5px;
+  }
+  
+  .max-gainer {
+    background: linear-gradient(to right, #008000, #adff2f); /* green gradient for Max Gainer */
+  }
+  
+  .max-gainer.green {
+    color: white;
+  }
+  
+  .max-gainer .label {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .max-gainer .stock {
+    font-size: 28px; /* increased font size */
+    margin-top: 10px;
+    font-weight: bold;
+  }
+  
+  .max-gainer .gain {
+    font-size: 24px; /* increased font size */
+    margin-top: 10px;
+  }
+  
+  .max-loser {
+    background: linear-gradient(to right, #ff0000, #ff4500); /* red gradient for Max Loser */
+  }
+  
+  .max-loser.red {
+    color: white;
+  }
+  
+  .max-loser .label {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .max-loser .stock {
+    font-size: 28px; /* increased font size */
+    margin-top: 10px;
+    font-weight: bold;
+  }
+  
+  .max-loser .loss {
+    font-size: 24px; /* increased font size */
+    margin-top: 10px;
+  }
+  

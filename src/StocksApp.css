@@ -1,0 +1,9 @@
+.components-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .vertical-space {
+    margin-top: 200px; /* Adjust the spacing as needed */
+  }
+  
