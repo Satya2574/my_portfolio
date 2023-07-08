@@ -1,11 +1,33 @@
 .table-bordered td,
 .table-bordered th {
   padding: 10px;
-  transition: background-color 0.3s ease;
 }
 
 .table-bordered th {
-  border-bottom: 1px solid #dd1414;
+  position: relative;
+  border-bottom: 1px solid #000;
+}
+
+.table-bordered th .sort-arrow {
+  position: absolute;
+  top: 50%;
+  font-size: 1rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.table-bordered th:hover .sort-arrow {
+  opacity: 1;
+}
+
+.table-bordered th.sort-asc .sort-arrow {
+  left: 5px;
+  transform: translateY(-50%);
+}
+
+.table-bordered th.sort-desc .sort-arrow {
+  right: 5px;
+  transform: translateY(-50%);
 }
 
 .table-bordered td.text-right,
@@ -18,7 +40,7 @@
   align-items: center;
   justify-content: flex-end;
   margin-right: 10px;
-  margin-bottom: 10px; /* Add margin at the bottom */
+  margin-bottom: 10px;
 }
 
 .right-corner-buttons button {
@@ -42,10 +64,6 @@
   margin-left: 10px;
 }
 
-.table-bordered thead th:hover {
-  background-color: #f5f5f5;
-}
-
-.table-bordered tbody tr:hover td:not(.no-hover) {
-  background-color: #f5f5f5;
+.table-container {
+  margin-top: 10px;
 }

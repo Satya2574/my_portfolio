@@ -1,55 +1,59 @@
 .component {
-  margin-top: 100px;
-  font-family: Arial, sans-serif;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  font-family: sans-serif;
   background-color: #ffffff;
   padding: 10px;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: flex-start;
-  width: 250px;
+  align-items: flex-end;
+  width: 50px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  height: 100px;
 }
-
 .nifty-component {
-  border: 2px solid blue; /* Change the border color and size as desired */
-  border-radius: 5px;
-  padding: 10px;
-  background: linear-gradient(to bottom, #000000, #cc8dc9);
-  color: white;
+  border-radius: 2px;
+  padding: 2px;
+  background-color: #212529;
+  color: #ffffff;
+  font-size: 12px;
+  line-height: 1.5;
 }
 
 .content {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: flex-end;
   width: 100%;
 }
 
 .text {
   display: flex;
   align-items: center;
-  font-size: 18px;
-  color: #333;
+  font-size: 16px;
+  color: #ffffff;
 }
 
 .icon {
   margin-left: 5px;
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .icon.green {
-  color: green;
+  color: #44cc11;
 }
 
 .icon.red {
-  color: red;
+  color: #ff0000;
 }
 
 .details {
   display: flex;
   flex-direction: row;
-  margin-bottom: 5px; /* Adjust the margin as needed */
+  margin-bottom: 5px;
 }
 
 .price,
@@ -62,37 +66,39 @@
 
 .dateTime {
   font-size: 12px;
-  color: #666;
+  color: #ffffff;
   text-align: right;
 }
+
 .dateTime.unique-style {
-    font-size: 14px;
-    color: #ffffff;
-    background-color: #ff6600;
-    padding: 4px 8px;
-    border-radius: 4px;
-    margin-top: 8px;
-  }
-  .nifty-component .text {
-    display: flex;
-    align-items: center;
-    font-size: 20px;
-    color: #333;
-  }
-  .nifty-component .details .larger-font {
-    font-size: 18px;
-  }
-  
-  .nifty-component .dateTime {
-    font-size: 14px;
-    color: #ffffff;
-    background-color: #ff6600;
-    padding: 4px 8px;
-    border-radius: 4px;
-    margin-top: 8px;
-  }
-  .text-content{
-    font-size: 18px;
-  }
-  
-  
+  font-size: 14px;
+  color: #ffffff;
+  background-color: #44cc11;
+  padding: 4px 8px;
+  border-radius: 4px;
+  margin-top: 8px;
+}
+
+.nifty-component .text {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  color: #ffffff;
+}
+
+.nifty-component .details .larger-font {
+  font-size: 14px;
+}
+
+.nifty-component .dateTime {
+  font-size: 12px;
+  color: #ffffff;
+  background-color: #ff0000;
+  padding: 4px 8px;
+  border-radius: 4px;
+  margin-top: 8px;
+}
+
+.text-content {
+  font-size: 16px;
+}

@@ -1,122 +1,113 @@
-import React, { Component } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './StocksPortfolio.css';
-
-class StocksPortfolio extends Component {
-static getDerivedStateFromProps(props, state) {
-    if (props.portfolio !== state.portfolio) {
-      return { portfolio: props.portfolio };
-    }
-    // Return null if the state hasn't changed
-    return null;
-  }
-
-  state = {
-    portfolio: this.props.portfolio, // using props to initialize portfolio
-    filter: 'all',
-    sortBy: null,
-    sortDirection: 'asc',
+import React, { useEffect, useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./StocksPortfolio.css";
+const StocksPortfolio = (props) => {
+  const stocks = props.stocks;
+  const [sortBy, setSortBy] = useState(null); // Track the current sorting criteria
+  const [filter, setFilter] = useState("all"); // Track whether to filter by profit
+  const [filteredStocks, setFilteredStocks] = useState(stocks);
+  const [sortedStocks, setSortedStocks] = useState(filteredStocks);
+  const handleSortBy = (event) => {
+    const selectedCriteria = event.target.value;
+    setSortBy(selectedCriteria);
   };
-  handleFilterChange = (event) => {
-    this.setState({ filter: event.target.value });
-  }
+  const handleFilter = (event) => {
+    setFilter(event.target.value);
+  };
+  useEffect(() => {
+    let filteredStocks = stocks;
 
-  handleSortChange = (sortBy) => {
-    this.setState((state) => ({
-      sortBy,
-      sortDirection: state.sortDirection === 'asc' ? 'desc' : 'asc'
-    }));
-  }
-
-  getFilteredAndSortedPortfolio() {
-    const { portfolio } = this.props; // Changed this from this.state
-    const { filter, sortBy, sortDirection } = this.state;
-
-    let filteredPortfolio = portfolio;
-
-    // Apply profit/loss filter
-    if (filter === 'profit') {
-      filteredPortfolio = portfolio.filter(stock => stock.increasePercentage > 0);
-    } else if (filter === 'loss') {
-      filteredPortfolio = portfolio.filter(stock => stock.increasePercentage < 0);
+    if (filter === "profit") {
+      filteredStocks = stocks.filter((stock) => stock.Change > 0);
+    } else if (filter === "loss") {
+      filteredStocks = stocks.filter((stock) => stock.Change < 0);
+    }
+    let sortedStocks = [...filteredStocks];
+    if (sortBy === "Quantity") {
+      sortedStocks.sort((a, b) => b.AvailableQty - a.AvailableQty);
+    } else if (sortBy === "Valuation") {
+      sortedStocks.sort((a, b) => b.Valuation - a.Valuation);
+    } else if (sortBy === "Holding(%)") {
+      sortedStocks.sort((a, b) => b.HoldPer - a.HoldPer);
+    } else if (sortBy === "change") {
+      sortedStocks.sort((a, b) => b.Change - a.Change);
     }
 
-    // Apply sorting
-    if (sortBy) {
-      filteredPortfolio.sort((a, b) => {
-        if (a[sortBy] < b[sortBy]) {
-          return sortDirection === 'asc' ? -1 : 1;
-        }
-        if (a[sortBy] > b[sortBy]) {
-          return sortDirection === 'asc' ? 1 : -1;
-        }
-        return 0;
-      });
-    }
+    setFilteredStocks(filteredStocks);
+    setSortedStocks(sortedStocks);
+  }, [filter, stocks, sortBy]);
 
-    return filteredPortfolio;
-  }
-  render() {
-    const portfolio = this.getFilteredAndSortedPortfolio();
-
-    return (
-      <div className="container">
-        <div className="row">
-          <div className="col-12 col-sm-4">
-            <label>Filter by profit/loss</label>
-            <select className="form-control" onChange={this.handleFilterChange}>
-              <option value="all">All</option>
-              <option value="profit">Profit</option>
-              <option value="loss">Loss</option>
-            </select>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-12 col-sm-6 col-md-3">
-            <button className="btn btn-primary mt-2" onClick={() => this.handleSortChange('buyAvg')}>Sort by Buy Value</button>
-          </div>
-          <div className="col-12 col-sm-6 col-md-3">
-            <button className="btn btn-primary mt-2" onClick={() => this.handleSortChange('LTP')}>Sort by LTP</button>
-          </div>
-          <div className="col-12 col-sm-6 col-md-3">
-            <button className="btn btn-primary mt-2" onClick={() => this.handleSortChange('quantity')}>Sort by Quantity</button>
-          </div>
-          <div className="col-12 col-sm-6 col-md-3">
-            <button className="btn btn-primary mt-2" onClick={() => this.handleSortChange('investedAmount')}>Sort by Invested Amount</button>
-          </div>
-        </div>
-        <div className="container">
-          {portfolio.map((stock, index) => (
-            <div className="card mt-3" key={index}>
-              <div className="card-header">
-                <h5>{stock.stockName}</h5>
-              </div>
-              <div className="card-body">
-                <table className="table table-borderless">
-                  <tbody>
-                    <tr>
-                      <td><strong>Quantity:</strong> {stock.quantity}</td>
-                      <td><strong>Buy Average:</strong> {stock.buyAvg}</td>
-                      <td style={{color: stock.increasePercentage < 0 ? 'red' : 'green'}}><strong>Change (%) :</strong> {stock.increasePercentage}%</td>
-                    </tr>
-                    <tr>
-                      <td><strong>Invested Amount:</strong> {stock.investedAmount}</td>
-                      <td><strong>Last Traded Price:</strong> {stock.LTP}</td>
-                      <td style={{color: stock.incrementalValue < 0 ? 'red' : 'green'}}><strong>Change :</strong> {stock.incrementalValue}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          ))}
-        </div>
+  return (
+    <div>
+      <div className='right-corner-buttons'>
+        <label htmlFor='sort-select'>Sort By:</label>
+        <select
+          id='sort-select'
+          className='sort-select'
+          value={sortBy || ""}
+          onChange={handleSortBy}
+        >
+          <option value=''>None</option>
+          <option value='Quantity'>Quantity</option>
+          <option value='Valuation'>Valuation</option>
+          <option value='Holding(%)'>Holding(%)</option>
+          <option value='change'>Change</option>
+        </select>
+        <select
+          id='filter-select'
+          className='filter-select'
+          value={filter}
+          onChange={handleFilter}
+        >
+          <option value='all'>All</option>
+          <option value='profit'>Profit</option>
+          <option value='loss'>Loss</option>
+        </select>
       </div>
-    );
-  }
-}
 
+      <table className='table table-bordered'>
+        <thead>
+          <tr>
+            <th>Security Name</th>
+            <th>Sector</th>
+            <th className='text-right'>Quantity</th>
+            <th className='text-right'>Holding (%)</th>
+            <th className='text-right'>Last Traded Price</th>
+            <th className='text-right'>Valuation</th>
+            <th className='text-right'>Change (%)</th>
+            <th className='text-right'>Change</th>
+          </tr>
+        </thead>
+        <tbody>
+          {sortedStocks.map((stock, index) => (
+            <tr key={index}>
+              <td>{stock.SecName}</td>
+              <td>{stock.Sector}</td>
+              <td className='text-right'>{stock.AvailableQty}</td>
+              <td className='text-right'>{stock.HoldPer}%</td>
+              <td className='text-right'>{stock.LTP}</td>
+              <td className='text-right'>{stock.Valuation}</td>
+              <td
+                style={{
+                  color: stock.ChangePer < 0 ? "red" : "green",
+                }}
+                className='text-right'
+              >
+                {stock.ChangePer}%
+              </td>
+              <td
+                style={{
+                  color: stock.Change < 0 ? "red" : "green",
+                }}
+                className='text-right'
+              >
+                {stock.Change}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
 export default StocksPortfolio;
-
-
-
-
